@@ -3,15 +3,29 @@ package papa.noel;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
+class Elf {
+    private final String[] inventory;
+
+    public Elf(String inventoryInput) {
+        inventory = inventoryInput.split("\n");
+    }
+
+    public long getInventorySize() {
+        return Arrays.stream(inventory).count();
+    }
+
+    public long getCalories() {
+        return Arrays.stream(inventory).mapToInt(Integer::parseInt).sum();
+    }
+}
 
 public class CaloryCounter {
     private final List<Elf> elves;
 
     public CaloryCounter(String input) {
         String[] elvesCalory = input.split("\n\n");
-        elves = Arrays.stream(elvesCalory).map(inventory -> new Elf(inventory)).toList();
+        elves = Arrays.stream(elvesCalory).map(Elf::new).toList();
     }
 
     public long getNumberOfElves() {
